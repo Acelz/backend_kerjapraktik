@@ -1,5 +1,4 @@
-import District from "../models/DistrictModel.js";
-import argon2 from "argon2";
+import District from "../models/CodeDistrictModel.js";
 import { Op } from "sequelize";
 
 export const getDistricts = async (req, res) => {

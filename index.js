@@ -6,6 +6,9 @@ import database from "./config/Database.js";
 import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
+import DistrictRoute from "./routes/DistrictRoute.js";
+import RegencyMunicipalityRoute from "./routes/RegencyMunicipalityRoute.js";
+import VillageRoute from "./routes/VillageRoute.js";
 
 dotenv.config();
 
@@ -43,6 +46,9 @@ app.use(
 app.use(express.json());
 app.use(UserRoute);
 app.use(AuthRoute);
+app.use(DistrictRoute);
+app.use(RegencyMunicipalityRoute);
+app.use(VillageRoute);
 
 app.get("/", (req, res) => {
   res.send("<h1>Backend</h1>");

@@ -14,6 +14,20 @@ const CodeDistrict = database.define(
         notEmpty: true,
       },
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    number: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
   },
   {
     freezeTableName: true,

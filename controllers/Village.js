@@ -1,4 +1,4 @@
-import Village from "../models/VillageModel.js";
+import Village from "../models/CodeVillageModel.js";
 import { Op } from "sequelize";
 
 export const getVillages = async (req, res) => {

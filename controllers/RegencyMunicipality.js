@@ -2,7 +2,7 @@ import CodeRegencyMunicipality from "../models/CodeRegencyMunicipalityModel.js";
 import argon2 from "argon2";
 import { Op } from "sequelize";
 
-export const getcodeRegencyMunicipalitys = async (req, res) => {
+export const getcodeRegencyMunicipality = async (req, res) => {
   const page = parseInt(req.query.page) || 0;
   const limit = parseInt(req.query.limit) || 10;
   const search = req.query.search_query || "";
