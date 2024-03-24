@@ -20,9 +20,9 @@ const store = new sessionStore({
   db: database,
 });
 
-(async () => {
-  await database.sync();
-})();
+// (async () => {
+//   await database.sync();
+// })();
 
 app.use(
   session({

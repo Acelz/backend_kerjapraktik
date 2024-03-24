@@ -76,7 +76,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const createAdmin = async (req, res) => {
-  const { username, password, confirmPassword, role, nip, name } = req.body;
+  const { username, password, confirmPassword, role, name } = req.body;
   if (password !== confirmPassword)
     return res
       .status(400)
@@ -85,10 +85,8 @@ export const createAdmin = async (req, res) => {
   try {
     await User.create({
       username: username,
-      nip: nip,
       name: name,
       password: hashPassword,
-      isActive: true,
       role: role,
     });
 

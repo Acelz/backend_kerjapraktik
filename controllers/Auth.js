@@ -2,6 +2,11 @@ import User from "../models/UserModel.js";
 import argon2 from "argon2";
 
 export const login = async (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res
+      .status(400)
+      .json({ message: "Mohon isi nama pengguna dan kata sandi!" });
+  }
   const user = await User.findOne({
     where: {
       username: req.body.username,

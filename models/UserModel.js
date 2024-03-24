@@ -30,29 +30,8 @@ const User = database.define(
         len: [3, 100],
       },
     },
-    nip: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    division: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
-    isActive: {
-      type: DataTypes.BOOLEAN,
       allowNull: false,
       validate: {
         notEmpty: true,
