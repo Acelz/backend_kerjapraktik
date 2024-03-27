@@ -9,6 +9,7 @@ import AuthRoute from "./routes/AuthRoute.js";
 import DistrictRoute from "./routes/DistrictRoute.js";
 import RegencyMunicipalityRoute from "./routes/RegencyMunicipalityRoute.js";
 import VillageRoute from "./routes/VillageRoute.js";
+import VehicleRoute from "./routes/VehicleRoute.js";
 
 dotenv.config();
 
@@ -20,9 +21,9 @@ const store = new sessionStore({
   db: database,
 });
 
-// (async () => {
-//   await database.sync();
-// })();
+(async () => {
+  await database.sync();
+})();
 
 app.use(
   session({
@@ -49,6 +50,7 @@ app.use(AuthRoute);
 app.use(DistrictRoute);
 app.use(RegencyMunicipalityRoute);
 app.use(VillageRoute);
+app.use(VehicleRoute);
 
 app.get("/", (req, res) => {
   res.send("<h1>Backend</h1>");
