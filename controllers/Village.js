@@ -111,3 +111,12 @@ export const deleteVillage = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getAllVillages = async (req, res) => {
+  try {
+    const response = await Village.findAll({});
+    res.status(200).json({ message: "Berhasil", result: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -106,3 +106,12 @@ export const deleteCodeRegencyMunicipality = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getAllRegencyMunicipality = async (req, res) => {
+  try {
+    const response = await CodeRegencyMunicipality.findAll();
+    res.status(200).json({ message: "Berhasil", result: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
