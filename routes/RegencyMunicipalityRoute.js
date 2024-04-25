@@ -3,6 +3,8 @@ import {
   createCodeRegencyMunicipality,
   getcodeRegencyMunicipality,
   updateCodeRegencyMunicipality,
+  deleteCodeRegencyMunicipality,
+  getCodeRegencyMunicipalityById,
 } from "../controllers/RegencyMunicipality.js";
 
 const router = express.Router();
@@ -10,5 +12,7 @@ const router = express.Router();
 router.get("/regency-municipalities", getcodeRegencyMunicipality);
 router.post("/regency-municipalities", createCodeRegencyMunicipality);
 router.patch("/regency-municipalities/:id", updateCodeRegencyMunicipality);
+router.delete("/regency-municipalities/:id", deleteCodeRegencyMunicipality);
+router.get("/regency-municipalities/:id", getCodeRegencyMunicipalityById);
 
 export default router;

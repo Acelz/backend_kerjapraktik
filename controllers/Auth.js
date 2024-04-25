@@ -2,29 +2,23 @@ import User from "../models/UserModel.js";
 import argon2 from "argon2";
 
 export const login = async (req, res) => {
-  if (!req.body.username || !req.body.password) {
+  try {
+    const user = await User.findOne({
+      where: { username: req.body.username },
+    });
+    if (!user)
+      return res.status(404).json({ message: "Pengguna tidak ditemukan" });
+    const match = await argon2.verify(user.password, req.body.password);
+    if (!match) return res.status(400).json({ message: "Kata sandi salah" });
+    req.session.userId = user.uuid;
+    res
+      .status(200)
+      .json({ uuid: user.uuid, username: user.username, role: user.role });
+  } catch (error) {
     return res
-      .status(400)
-      .json({ message: "Mohon isi nama pengguna dan kata sandi!" });
+      .status(500)
+      .json({ message: "Kesalahan server internal", error: error.message });
   }
-  const user = await User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  });
-  if (!user)
-    return res.status(404).json({ message: "Pengguna tidak ditemukan" });
-  const match = await argon2.verify(user.password, req.body.password);
-  if (!match) return res.status(400).json({ message: "Kata sandi salah" });
-  if (user.isActive === 0)
-    res.status(400).json({ message: "Pengguna tidak aktif" });
-  req.session.userId = user.uuid;
-  const uuid = user.uuid;
-  const username = user.username;
-  const role = user.role;
-  const isActive = user.isActive;
-  const division = user.division;
-  res.status(200).json({ uuid, username, role, division, isActive });
 };
 
 export const me = async (req, res) => {
@@ -32,7 +26,7 @@ export const me = async (req, res) => {
     return res.status(401).json({ message: "Mohon masuk ke akun Anda!" });
   }
   const user = await User.findOne({
-    attributes: ["uuid", "username", "role", "name", "division", "isActive"],
+    attributes: ["uuid", "username", "role", "name"],
     where: {
       uuid: req.session.userId,
     },

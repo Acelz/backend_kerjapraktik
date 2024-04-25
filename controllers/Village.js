@@ -70,10 +70,10 @@ export const updateVillage = async (req, res) => {
       }
     );
 
-    res.status(200).json({ message: "Berhasil", result: response });
+    return res.status(200).json({ message: "Berhasil", result: response });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -81,13 +81,33 @@ export const createVillage = async (req, res) => {
   const { number, name } = req.body;
 
   try {
-    const Village = await Village.create({
-      number: number,
-      name: name,
+    const existingVillage = await Village.findOne({
+      where: {
+        [Op.or]: [{ number: number }, { name: name }],
+      },
     });
-    res.status(201).status({ message: "Berhasil", result: Village });
+
+    if (existingVillage) {
+      return res.status(400).json({ message: "Village already exists" });
+    }
+
+    const village = await Village.create({ number, name });
+    return res.status(201).json({ message: "Berhasil", result: village });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const deleteVillage = async (req, res) => {
+  try {
+    const response = await Village.destroy({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+    res.status(200).json({ message: "Berhasil", result: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

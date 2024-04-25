@@ -1,5 +1,4 @@
 import CodeRegencyMunicipality from "../models/CodeRegencyMunicipalityModel.js";
-import argon2 from "argon2";
 import { Op } from "sequelize";
 
 export const getcodeRegencyMunicipality = async (req, res) => {
@@ -86,11 +85,24 @@ export const createCodeRegencyMunicipality = async (req, res) => {
       number: number,
       name: name,
     });
-    res
+    return res
       .status(201)
-      .status({ message: "Berhasil", result: codeRegencyMunicipality });
+      .json({ message: "Berhasil", result: codeRegencyMunicipality });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const deleteCodeRegencyMunicipality = async (req, res) => {
+  try {
+    const response = await CodeRegencyMunicipality.destroy({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+    res.status(200).json({ message: "Berhasil", result: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

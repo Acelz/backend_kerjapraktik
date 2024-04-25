@@ -4,13 +4,15 @@ import {
   getVillageById,
   getVillages,
   updateVillage,
+  deleteVillage,
 } from "../controllers/Village.js";
 
 const router = express.Router();
 
 router.get("/villages", getVillages);
-router.get("/villages/:id", getVillageById);
-router.patch("/villages/:d", updateVillage);
-router.post("/villages", createVillage);
+router.get("/village/:id", getVillageById);
+router.patch("/village/:id", updateVillage);
+router.post("/village", createVillage);
+router.delete("/village/:id", deleteVillage);
 
 export default router;

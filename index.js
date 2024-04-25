@@ -40,7 +40,13 @@ app.use(
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
   })
 );
 

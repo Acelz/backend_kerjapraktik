@@ -3,12 +3,16 @@ import {
   createDistrict,
   getDistricts,
   updateDistrict,
+  getDistrictById,
+  deleteDistrict,
 } from "../controllers/District.js";
 
 const router = express.Router();
 
 router.get("/districts", getDistricts);
-router.post("/districts", createDistrict);
-router.patch("/districts/:id", updateDistrict);
+router.post("/district", createDistrict);
+router.patch("/district/:id", updateDistrict);
+router.get("/district/:id", getDistrictById);
+router.delete("/district/:id", deleteDistrict);
 
 export default router;

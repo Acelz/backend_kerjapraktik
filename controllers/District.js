@@ -58,6 +58,16 @@ export const updateDistrict = async (req, res) => {
   const { number, name } = req.body;
 
   try {
+    const existingDistrict = await District.findOne({
+      where: {
+        [Op.or]: [{ number: number }, { name: name }],
+      },
+    });
+
+    if (existingDistrict && existingDistrict.uuid !== req.params.id) {
+      return res.status(400).json({ message: "District already exists" });
+    }
+
     const response = await District.update(
       {
         number: number,
@@ -70,6 +80,10 @@ export const updateDistrict = async (req, res) => {
       }
     );
 
+    if (response[0] === 0) {
+      return res.status(404).json({ message: "District not found" });
+    }
+
     res.status(200).json({ message: "Berhasil", result: response });
   } catch (error) {
     console.error(error);
@@ -81,13 +95,25 @@ export const createDistrict = async (req, res) => {
   const { number, name } = req.body;
 
   try {
-    const District = await District.create({
-      number: number,
-      name: name,
-    });
-    res.status(201).status({ message: "Berhasil", result: District });
+    const district = await District.create({ number, name });
+    return res
+      .status(201)
+      .json({ message: "District created successfully", result: district });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const deleteDistrict = async (req, res) => {
+  try {
+    const response = await District.destroy({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+    res.status(200).json({ message: "Berhasil", result: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

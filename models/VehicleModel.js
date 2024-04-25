@@ -81,7 +81,6 @@ const Vehicle = database.define(
         notEmpty: true,
       },
     },
-    // Owner Information
     ownerName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -130,6 +129,7 @@ CodeVillage.hasMany(Vehicle, { foreignKey: "villageId" });
 Vehicle.belongsTo(CodeRegencyMunicipality, {
   foreignKey: "regencyOrMunicipalityId",
 });
+
 CodeRegencyMunicipality.hasMany(Vehicle, {
   foreignKey: "regencyOrMunicipalityId",
 });
