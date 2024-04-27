@@ -12,9 +12,9 @@ export const getAllCount = async (req, res) => {
 
     return res.status(200).json({
       result: [
-        { name: "Kelurahan/Desa", count: villageCount },
-        { name: "Kecamatan", count: districtCount },
-        { name: "Kabupaten/Kota", count: regencyMunicipalityCount },
+        { name: "Kode Kelurahan/Desa", count: villageCount },
+        { name: "Kode Kecamatan", count: districtCount },
+        { name: "Kode Kabupaten/Kota", count: regencyMunicipalityCount },
         { name: "Kendaraan", count: vehicleCount },
       ],
     });

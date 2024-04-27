@@ -75,7 +75,7 @@ export const getUserById = async (req, res) => {
   }
 };
 
-export const createAdmin = async (req, res) => {
+export const createUser = async (req, res) => {
   const { username, password, confirmPassword, role, name } = req.body;
   if (password !== confirmPassword)
     return res
@@ -96,48 +96,6 @@ export const createAdmin = async (req, res) => {
   }
 };
 
-export const createDivision = async (req, res) => {
-  const { username, password, confirmPassword, role, nip, name } = req.body;
-  if (password !== confirmPassword)
-    return res
-      .status(400)
-      .json({ message: "Kata Sandi dan Konfirmasi Kata Sandi tidak cocok" });
-  const hashPassword = await argon2.hash(password);
-  try {
-    await User.create({
-      username: username,
-      nip: nip,
-      name: name,
-      password: hashPassword,
-      division: DIVISION.PERLINDUNGAN_JAMINAN_SOSIAL,
-      isActive: true,
-      role: role,
-    });
-
-    res.status(201).json({ message: "Pengguna berhasil ditambahkan" });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
-export const isActivateUser = async (req, res) => {
-  const { isActive } = req.body;
-  try {
-    const response = await User.update(
-      {
-        isActive: isActive,
-      },
-      {
-        where: {
-          uuid: req.params.id,
-        },
-      }
-    );
-    res.status(200).json({ message: "Berhasil", result: response });
-  } catch (error) {}
-};
-
-// Pada UserController.js
 export const updateUser = async (req, res) => {
   const { username, nip, name } = req.body;
 

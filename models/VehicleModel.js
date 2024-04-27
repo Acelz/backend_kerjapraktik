@@ -9,11 +9,16 @@ const { DataTypes } = Sequelize;
 const Vehicle = database.define(
   "vehicle",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
       allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -21,7 +26,7 @@ const Vehicle = database.define(
     licensePlate: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
+      unique: true,
       validate: {
         notEmpty: true,
       },
@@ -29,90 +34,50 @@ const Vehicle = database.define(
     brand: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     yearMade: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     color: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     vehicleType: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     model: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     cylinderCapacity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     ownerName: {
       type: DataTypes.STRING,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     ownerAddress: {
       type: DataTypes.TEXT,
       allowNull: false,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     districtId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     villageId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
     },
     regencyOrMunicipalityId: {
       type: DataTypes.INTEGER,
+      allowNull: true, // Allow null if needed
     },
   },
   {
@@ -129,7 +94,6 @@ CodeVillage.hasMany(Vehicle, { foreignKey: "villageId" });
 Vehicle.belongsTo(CodeRegencyMunicipality, {
   foreignKey: "regencyOrMunicipalityId",
 });
-
 CodeRegencyMunicipality.hasMany(Vehicle, {
   foreignKey: "regencyOrMunicipalityId",
 });
