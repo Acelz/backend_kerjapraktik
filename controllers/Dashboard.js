@@ -2,6 +2,7 @@ import District from "../models/CodeDistrictModel.js";
 import Vehicle from "../models/VehicleModel.js";
 import CodeRegencyMunicipality from "../models/CodeRegencyMunicipalityModel.js";
 import Village from "../models/CodeVillageModel.js";
+import User from "../models/UserModel.js";
 
 export const getAllCount = async (req, res) => {
   try {
@@ -9,6 +10,7 @@ export const getAllCount = async (req, res) => {
     const vehicleCount = await Vehicle.count();
     const regencyMunicipalityCount = await CodeRegencyMunicipality.count();
     const villageCount = await Village.count();
+    const userCount = await User.count();
 
     return res.status(200).json({
       result: [
@@ -16,6 +18,7 @@ export const getAllCount = async (req, res) => {
         { name: "Kode Kecamatan", count: districtCount },
         { name: "Kode Kabupaten/Kota", count: regencyMunicipalityCount },
         { name: "Kendaraan", count: vehicleCount },
+        { name: "Pengguna", count: userCount },
       ],
     });
   } catch (error) {
